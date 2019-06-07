@@ -15,7 +15,6 @@ def get_features_basik(df):
    
    M = np.concatenate([tfidf,pos,feats],axis=1)
    
-   #Finally get a list of variable names
    variables = ['']*len(vocab)
    for k,v in vocab.items():
        variables[v] = k
@@ -24,7 +23,7 @@ def get_features_basik(df):
    for k,v in pos_vocab.items():
        pos_variables[v] = k
 
-   feature_names = variables+pos_variables+other_features_names
+   feature_names = variables + pos_variables + other_features_names
    
    return (M, feature_names)
 
