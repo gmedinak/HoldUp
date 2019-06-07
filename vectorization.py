@@ -90,7 +90,7 @@ def get_feature_array(tweets):
     feats=[]
     for t in tweets:
         feats.append(other_features(t))
-    return np.array(feats), get_other_feature_names()
+    return (np.array(feats), get_other_feature_names())
 
 def import_from_csv(data_location):
    csv_data = pd.read_csv(data_location) 
@@ -123,20 +123,20 @@ def get_pos_tfidf_vector(tweets, preprocess, tokenizer):
     max_df=0.75,
     )
     
-    tweet_tags = get_pos_vector(tweets, preprocess, tokenizer)
+   tweet_tags = get_pos_vector(tweets, preprocess, tokenizer)
     
-    # pos is the numerical tf matrix 
-    pos = pos_vectorizer.fit_transform(pd.Series(tweet_tags)).to_array()
+   # pos is the numerical tf matrix 
+   pos = pos_vectorizer.fit_transform(pd.Series(tweet_tags)).to_array()
     
-    # pos_vocab is the vocabulary dictionary that holds the possible parts of speech combos
-    pos_vocab = {v:i for i, v in enumerate(pos_vectorizer.get_feature_names())
+   # pos_vocab is the vocabulary dictionary that holds the possible parts of speech combos
+   pos_vocab = {v:i for i, v in enumerate(pos_vectorizer.get_feature_names())}
     
-    return pos, pos_vocab
+   return (pos, pos_vocab)
    
    
 # expects the tf vector as input, preprocess should be a defined function 
 #  
-def get_tfid_vector(tweets, tokenize, preprocess):
+def get_tfidf_vector(tweets, tokenize, preprocess):
    
    tfidf_vectorizer = TfidfVectorizer(
     tokenizer=tokenize,
@@ -157,7 +157,7 @@ def get_tfid_vector(tweets, tokenize, preprocess):
    idf_values = vectorizer.idf_
    idf_dict = {i:idf_values[i] for i in vocab.values()}
     
-   return tfidf, vocab
+   return (tfidf, vocab)
    
 def get_pos_vector(tweets, preprocess, basic_tokenize):
    tweet_tags = []
@@ -177,7 +177,7 @@ def get_pos_vector_spacy(tweets):
    tweet_tags = []
    docs = []
    
-   for tweet in tweets
+   for tweet in tweets:
       doc = nlp(tweet)
       docs.append(doc)
          
@@ -198,8 +198,4 @@ def get_SVM_model(training_features, train_data):
    model = LinearSVC()
    model.fit(training_features, train_data["setiment"])
    return model
-   pass
    
-def get_ngram_model()
-   
-   pass

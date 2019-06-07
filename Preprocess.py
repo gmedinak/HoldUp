@@ -1,4 +1,6 @@
-
+import nltk
+import re
+from nltk.stem.porter import *
 
 stopwords=stopwords = nltk.corpus.stopwords.words("english")
 
@@ -13,7 +15,7 @@ def tokenize_nltk(tweet):
 
 # Tokenize and converts each token into word stem
 # Example of this - processing -> process
-def tokenize_stemming(tweet)
+def tokenize_stemming(tweet):
    tweet_t = " ".join(re.split("[^a-zA-Z]*\s", tweet.lower())).strip()
    tokens = [stemmer.stem(t) for t in tweet_t.split()]
    return tokens
